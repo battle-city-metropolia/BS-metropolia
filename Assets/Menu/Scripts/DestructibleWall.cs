@@ -21,12 +21,29 @@ public class DestructibleWall : MonoBehaviour {
 		}
 	}
 	*/
-	public GameObject gameObject;
 
-	void OnCollisionEnter2D(Collision2D collision){
-		if (collision.gameObject.name == "Ball") {
+	public GameObject otherGameObject;
+
+	void OnCollisionEnter2D(Collision2D collision)
+	{
+		Debug.Log("Entered OnCollisionEnter2D");
+
+		/*if (collision.gameObject.name == "Ball") {
 			DestroyObject (this.gameObject);
 			Debug.Log ("Collided with an object.");
+		}*/
+	}
+
+
+	void OnTriggerEnter2D(Collider2D otherCollider)
+	{
+		Debug.Log("Entered OnTriggerEnter2D");
+
+		// Is it a shot?
+		ShotScript shot = otherCollider.gameObject.GetComponent<ShotScript>();
+		if (shot != null)
+		{
+			Destroy(gameObject); // Destroy this wall
 		}
 	}
 

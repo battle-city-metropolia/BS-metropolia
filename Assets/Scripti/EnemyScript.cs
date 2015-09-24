@@ -9,9 +9,9 @@ public class EnemyScript : MonoBehaviour
 
 	void Start ()
 	{
-		ChangeMoveDirection(); // Change direction 
+		ChangeMoveDirectionRandom(); // Change direction 
 		// Call the Spawn function after a delay of the spawnTime and then continue to call after the same amount of time.
-		InvokeRepeating("ChangeMoveDirection", changeDirectionTime, changeDirectionTime);
+		InvokeRepeating("ChangeMoveDirectionRandom", changeDirectionTime, changeDirectionTime);
 	}
 
     void Awake()
@@ -29,7 +29,19 @@ public class EnemyScript : MonoBehaviour
         }
     }
 
-	void ChangeMoveDirection()
+	// Trigger
+	void OnTriggerEnter2D(Collider2D otherCollider)
+	{
+		string name = otherCollider.gameObject.name.ToLower();
+		if (name.Contains ("seinä") || name.Contains ("wall")) 
+		{
+			// Enemy hits the wall
+
+		}
+		
+	}
+
+	void ChangeMoveDirectionRandom()
 	{
 		int directionX = random.Next(0, 2);
 		int directionY = random.Next(0, 2);
@@ -38,10 +50,6 @@ public class EnemyScript : MonoBehaviour
 			directionX = -1;
 		if (directionY == 1 && random.Next(0, 2) == 1)
 			directionY = -1;
-
-
-		//Debug.Log ("directionX: " + directionX);
-		//Debug.Log ("directionY: " + directionY);
 
 		GetComponent<MoveScript>().direction = new Vector2(directionX, directionY);
 	}

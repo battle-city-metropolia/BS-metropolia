@@ -30,6 +30,7 @@ public class MoveScript : MonoBehaviour
 			movement = new Vector2(0, speed.y * direction.y);
 		}
 		Rotate(direction.x, direction.y);
+		transform.eulerAngles = rotationVector; // Apply rotation
 
 		// 2 - Movement
 		movement = new Vector2(

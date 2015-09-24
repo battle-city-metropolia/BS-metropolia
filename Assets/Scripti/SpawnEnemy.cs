@@ -2,14 +2,18 @@ using UnityEngine;
 
 public class SpawnEnemy : MonoBehaviour
 {
-	public PlayerHealth playerHealth;       // Reference to the player's heatlh.
-	public GameObject enemy;                // The enemy prefab to be spawned.
-	public float spawnTime = 8f;            // How long between each spawn. In seconds
-	public Transform[] spawnPoints;         // An array of the spawn points this enemy can spawn from.
+	public PlayerHealth playerHealth;       		// Reference to the player's heatlh.
+	public string playerObjectName = "oma_tankki";
+
+	public GameObject enemy;                		// The enemy prefab to be spawned.
+	public float spawnTime = 8f;            		// How long between each spawn. In seconds
+	public Transform[] spawnPoints;         		// An array of the spawn points this enemy can spawn from.
 	
 	
 	void Start ()
 	{
+		playerHealth = GameObject.Find(playerObjectName).GetComponent<PlayerHealth> ();
+
 		// Call the Spawn function after a delay of the spawnTime and then continue to call after the same amount of time.
 		InvokeRepeating ("Spawn", spawnTime, spawnTime);
 	}
@@ -17,10 +21,14 @@ public class SpawnEnemy : MonoBehaviour
 	
 	void Spawn ()
 	{
+		Debug.Log(spawnPoints.Length);
+
 		// If the player has no health left...
-		if(playerHealth.currentHealth <= 0f)
+		if (playerHealth.currentHealth <= 0f)
 		{
-			// ... exit the function.
+			Debug.Log("Stopping spawning because oma_tankki is dead");
+			// Stop invoking and exit the function.
+			CancelInvoke("Spawn"); 
 			return;
 		}
 		

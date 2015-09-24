@@ -10,23 +10,27 @@ public class EnemyHealth : MonoBehaviour
 	
 	Animator anim;                              // Reference to the animator.
 	//AudioSource enemyAudio;              // Reference to the audio source.
-	ParticleSystem hitParticles;             // Reference to the particle system that plays when the enemy is damaged.
-	CapsuleCollider capsuleCollider;     // Reference to the capsule collider.
-	bool isDead;                                  // Whether the enemy is dead.
-	bool isSinking;                               // Whether the enemy has started sinking through the floor.
+	//ParticleSystem hitParticles;             // Reference to the particle system that plays when the enemy is damaged.
+	//CapsuleCollider capsuleCollider;     // Reference to the capsule collider.
+	//bool isDead;                                  // Whether the enemy is dead.
+	//bool isSinking;                               // Whether the enemy has started sinking through the floor.
 
 	public bool isEnemy = true;
 	
 	void Awake ()
 	{
+
 		//     Setting up the references.
 		anim = GetComponent <Animator> ();
+		/*
 		//enemyAudio = GetComponent <AudioSource> ();
 		hitParticles = GetComponentInChildren <ParticleSystem> ();
 		capsuleCollider = GetComponent <CapsuleCollider> ();
+		*/
 		
 		//      Setting the current health when the enemy first spawns.
 		currentHealth = startingHealth;
+
 	}
 	
 //	void Update ()
@@ -39,7 +43,7 @@ public class EnemyHealth : MonoBehaviour
 //		}
 //	}
 
-	// Toomaksen skripti
+	// Trigger
 	void OnTriggerEnter2D(Collider2D otherCollider)
 	{
 		// Is this a shot?
@@ -49,26 +53,24 @@ public class EnemyHealth : MonoBehaviour
 			// Avoid friendly fire
 			if (shot.isEnemyShot != isEnemy)
 			{
-				DamageToomas(shot.damage);
-				
-				// Destroy the shot
-				Destroy(shot.gameObject); // Remember to always target the game object, otherwise you will just remove the script
+				TakeDamage(shot.damage);
 			}
 		}
 	}
+
 	// Toomaksen skripti
-	public void DamageToomas(int damageCount)
+	public void TakeDamage(int damageCount)
 	{
-		startingHealth -= damageCount;
+		currentHealth -= damageCount;
 		
-		if (startingHealth <= 0)
+		if (currentHealth <= 0)
 		{
 			// Dead!
-			Destroy(gameObject);
+			Death();
 		}
 	}
 
-	public void TakeDamage (int amount, Vector3 hitPoint)
+	/*public void TakeDamage (int amount, Vector3 hitPoint)
 	{
 		//       If the enemy is dead...
 		if(isDead)
@@ -79,39 +81,43 @@ public class EnemyHealth : MonoBehaviour
 		//enemyAudio.Play ();
 		
 		//       Reduce the current health by the amount of damage sustained.
-		currentHealth -= amount;
+		//currentHealth -= amount;
 		
 		//        Set the position of the particle system to where the hit was sustained.
-		hitParticles.transform.position = hitPoint;
+		//hitParticles.transform.position = hitPoint;
 		
 		//        And play the particles.
-		hitParticles.Play();
+		//hitParticles.Play();
 		
 		//        If the current health is less than or equal to zero...
-		if(currentHealth <= 0)
+		//if(currentHealth <= 0)
 		{
 			//        ... the enemy is dead.
 			Death ();
 		}
-	}
-	
+	}*/
+
+
 	void Death ()
 	{
 		//        The enemy is dead.
-		isDead = true;
+		//isDead = true;
 		
 		//        Turn the collider into a trigger so shots can pass through it.
-		capsuleCollider.isTrigger = true;
+		//capsuleCollider.isTrigger = true;
 		
 		//         Tell the animator that the enemy is dead.
-		anim.SetTrigger ("Dead");
+		if (anim != null)
+			anim.SetTrigger ("Dead");
+
+		Destroy(gameObject); // Destroy object from the game
 		
 		//              Change the audio clip of the audio source to the death clip and play it (this will stop the hurt clip playing).
 		//enemyAudio.clip = deathClip;
 		//enemyAudio.Play ();
 	}
 	
-	public void StartSinking ()
+	/*public void StartSinking ()
 	{
 		//            Find and disable the Nav Mesh Agent.
 		//GetComponent <NavMeshAgent> ().enabled = false;
@@ -127,5 +133,5 @@ public class EnemyHealth : MonoBehaviour
 		
 		//            After 2 seconds destory the enemy.
 		Destroy (gameObject, 1f);
-	}
+	}*/
 }

@@ -19,6 +19,22 @@ public class ShotScript : MonoBehaviour
 	void Start()
 	{
 		// 2 - Limited time to live to avoid any leak
-		Destroy(gameObject, 10); // 20sec
+		Destroy(gameObject, 10); // 10 sec
 	}
+
+	// Trigger
+	void OnTriggerEnter2D(Collider2D otherCollider)
+	{
+		string name = otherCollider.gameObject.name.ToLower();
+
+		if (name.Contains ("seinä") || name.Contains ("wall")) 
+		{
+			//Debug.Log ("Destroying shot: " + name);
+			Destroy(gameObject); // Destroy always shot if hits the walls
+		}
+
+	}
+
+
+
 }
