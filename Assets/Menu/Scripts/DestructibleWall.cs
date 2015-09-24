@@ -26,7 +26,7 @@ public class DestructibleWall : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D collision)
 	{
-		Debug.Log("Entered OnCollisionEnter2D");
+		//Debug.Log("Entered OnCollisionEnter2D");
 
 		/*if (collision.gameObject.name == "Ball") {
 			DestroyObject (this.gameObject);
@@ -37,7 +37,7 @@ public class DestructibleWall : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D otherCollider)
 	{
-		Debug.Log("Entered OnTriggerEnter2D");
+		//Debug.Log("Entered OnTriggerEnter2D");
 
 		// Is it a shot?
 		ShotScript shot = otherCollider.gameObject.GetComponent<ShotScript>();

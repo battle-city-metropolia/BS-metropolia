@@ -3,15 +3,20 @@ using System.Collections;
 
 public class EnemyScript : MonoBehaviour
 {
-	public float changeDirectionTime = 5f; // Time in seconds
 	System.Random random = new System.Random();
+
+	public float changeDirectionTime = 5f; // Time in seconds
+	public float stayingCheckTime = 2f; // Time in seconds
+
     private WeaponScript weapon;
+	private Vector3 enemyPosition;
 
 	void Start ()
 	{
+		enemyPosition = transform.position;
 		ChangeMoveDirectionRandom(); // Change direction 
 		// Call the Spawn function after a delay of the spawnTime and then continue to call after the same amount of time.
-		InvokeRepeating("ChangeMoveDirectionRandom", changeDirectionTime, changeDirectionTime);
+		InvokeRepeating("CheckForStaying", stayingCheckTime, stayingCheckTime);
 	}
 
     void Awake()
@@ -29,16 +34,16 @@ public class EnemyScript : MonoBehaviour
         }
     }
 
+	// Collision Trigger
+	void OnCollisionEnter2D(Collision2D collision)
+	{
+		this.ChangeMoveDirectionRandom();
+	}
+
 	// Trigger
 	void OnTriggerEnter2D(Collider2D otherCollider)
 	{
-		string name = otherCollider.gameObject.name.ToLower();
-		if (name.Contains ("seinä") || name.Contains ("wall")) 
-		{
-			// Enemy hits the wall
-
-		}
-		
+		Debug.Log("ENEMY OnTriggerEnter2D");
 	}
 
 	void ChangeMoveDirectionRandom()
@@ -52,6 +57,16 @@ public class EnemyScript : MonoBehaviour
 			directionY = -1;
 
 		GetComponent<MoveScript>().direction = new Vector2(directionX, directionY);
+	}
+
+	private void CheckForStaying() 
+	{
+		Vector3 newPosition = transform.position;
+
+		if (enemyPosition == newPosition)
+			ChangeMoveDirectionRandom ();
+
+		enemyPosition = newPosition;
 	}
 
 }
