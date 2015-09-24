@@ -10,6 +10,7 @@ public class EnemyScript : MonoBehaviour
 
     private WeaponScript weapon;
 	private Vector3 enemyPosition;
+	private int sightCheckError = 2;
 
 	void Start ()
 	{
@@ -28,11 +29,18 @@ public class EnemyScript : MonoBehaviour
     void Update()
     {
         // Auto-fire
-        if (weapon != null && weapon.CanAttack)
+        if (weapon != null && weapon.CanAttack && this.PlayerOnSight())
         {
             weapon.Attack(true);
         }
     }
+
+	bool PlayerOnSight() 
+	{
+		Vector3 playerPosition = GameObject.Find(GlobalVars.playerTankName).transform.position;
+		Vector3 ownPosition = transform.position;
+		return true;
+	}
 
 	// Collision Trigger
 	void OnCollisionEnter2D(Collision2D collision)

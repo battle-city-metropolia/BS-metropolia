@@ -59,7 +59,7 @@ public class PlayerMove : MonoBehaviour {
 		{
 			x = 0;
 			y = 0;
-			z = -90;
+			z = 270;
 		}
 		// Looking left
 		else if (inputX < 0)

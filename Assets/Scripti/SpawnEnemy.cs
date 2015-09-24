@@ -3,7 +3,6 @@ using UnityEngine;
 public class SpawnEnemy : MonoBehaviour
 {
 	public PlayerHealth playerHealth;       		// Reference to the player's heatlh.
-	public string playerObjectName = "oma_tankki";
 
 	public GameObject enemy;                		// The enemy prefab to be spawned.
 	public float spawnTime = 8f;            		// How long between each spawn. In seconds
@@ -12,8 +11,7 @@ public class SpawnEnemy : MonoBehaviour
 	
 	void Start ()
 	{
-		playerHealth = GameObject.Find(playerObjectName).GetComponent<PlayerHealth> ();
-
+		playerHealth = GameObject.Find(GlobalVars.playerTankName).GetComponent<PlayerHealth> ();
 		// Call the Spawn function after a delay of the spawnTime and then continue to call after the same amount of time.
 		InvokeRepeating ("Spawn", spawnTime, spawnTime);
 	}

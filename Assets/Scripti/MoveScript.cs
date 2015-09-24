@@ -44,6 +44,20 @@ public class MoveScript : MonoBehaviour
 		GetComponent<Rigidbody2D>().velocity = movement;
 	}
 
+	GlobalVars.RotationSides RotatedTo() 
+	{
+		if (rotationVector.x == 0 && rotationVector.y == 0 && rotationVector.z == 270)
+			return GlobalVars.RotationSides.Right;
+		else if (rotationVector.x == 0 && rotationVector.y == 0 && rotationVector.z == 90)
+			return GlobalVars.RotationSides.Left;
+		else if (rotationVector.x == 0 && rotationVector.y == 0 && rotationVector.z == 0)
+			return GlobalVars.RotationSides.Up;
+		else if (rotationVector.x == 0 && rotationVector.y == 0 && rotationVector.z == 180)
+			return GlobalVars.RotationSides.Down;
+
+		return GlobalVars.RotationSides.Unknown;
+	}
+
 	void Rotate(float inputX, float inputY)
 	{
 		float x = rotationVector.x,
@@ -55,7 +69,7 @@ public class MoveScript : MonoBehaviour
 		{
 			x = 0;
 			y = 0;
-			z = -90;
+			z = 270;
 		}
 		// Looking left
 		else if (inputX < 0)
