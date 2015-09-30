@@ -44,7 +44,7 @@ public class MoveScript : MonoBehaviour
 		GetComponent<Rigidbody2D>().velocity = movement;
 	}
 
-	GlobalVars.RotationSides RotatedTo() 
+	public GlobalVars.RotationSides RotatedTo() 
 	{
 		if (rotationVector.x == 0 && rotationVector.y == 0 && rotationVector.z == 270)
 			return GlobalVars.RotationSides.Right;

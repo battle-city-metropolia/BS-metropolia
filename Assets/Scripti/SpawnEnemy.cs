@@ -9,7 +9,7 @@ public class SpawnEnemy : MonoBehaviour
 	public Transform[] spawnPoints;         		// An array of the spawn points this enemy can spawn from.
 	public float delta = 0.5f;
 	float minX, maxX, minY, maxY;
-	int spawnCheckPositionsMaxTries = 50; // Max tries 
+	int spawnCheckPositionsMaxTries = 50; 			// Max tries to check for spawn position
 
 	void Start ()
 	{
