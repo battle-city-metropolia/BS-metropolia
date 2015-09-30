@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections;
 
@@ -6,13 +7,15 @@ public class EnemyScript : MonoBehaviour
 	System.Random random = new System.Random();
 
 	public float changeDirectionTime = 5f; // Time in seconds
-	public float stayingCheckTime = 2f; // Time in seconds
+	public float stayingCheckTime = 1.0f; // Time in seconds
 
     private WeaponScript weapon;
 	private Vector3 enemyPosition;
-	private int sightCheckError = 2;
+	private float sightCheckDelta = 0.3f;
 
-	void Start ()
+    private float floatCalculationsTolerance = 0.001f;
+
+    void Start ()
 	{
 		enemyPosition = transform.position;
 		ChangeMoveDirectionRandom(); // Change direction 
@@ -39,7 +42,34 @@ public class EnemyScript : MonoBehaviour
 	{
 		Vector3 playerPosition = GameObject.Find(GlobalVars.playerTankName).transform.position;
 		Vector3 ownPosition = transform.position;
-		return true;
+	    GlobalVars.RotationSides rotatedTo = GetComponent<MoveScript>().RotatedTo();
+
+	    if (rotatedTo == GlobalVars.RotationSides.Up)
+	    {
+	        if (playerPosition.y > ownPosition.y &&
+                    Math.Abs(playerPosition.x - ownPosition.x) < sightCheckDelta) // Looking up and player above the enemy
+	            return true;
+	    }
+        else if (rotatedTo == GlobalVars.RotationSides.Down)
+        {
+            if (playerPosition.y < ownPosition.y &&
+                    Math.Abs(playerPosition.x - ownPosition.x) < sightCheckDelta) // Looking down and player lower than enemy
+                return true;
+        }
+        else if (rotatedTo == GlobalVars.RotationSides.Left)
+        {
+            if (playerPosition.x < ownPosition.x
+                    && Math.Abs(playerPosition.y - ownPosition.y) < sightCheckDelta) // Looking left and player on the left side
+                return true;
+        }
+        else if (rotatedTo == GlobalVars.RotationSides.Right)
+        {
+            if (playerPosition.x > ownPosition.x &&
+                    Math.Abs(playerPosition.y - ownPosition.y) < sightCheckDelta) // Looking right and player on the right side
+                return true;
+        }
+
+        return false;
 	}
 
 	// Collision Trigger
@@ -51,7 +81,7 @@ public class EnemyScript : MonoBehaviour
 	// Trigger
 	void OnTriggerEnter2D(Collider2D otherCollider)
 	{
-		Debug.Log("ENEMY OnTriggerEnter2D");
+		//Debug.Log("ENEMY OnTriggerEnter2D");
 	}
 
 	void ChangeMoveDirectionRandom()
@@ -71,7 +101,8 @@ public class EnemyScript : MonoBehaviour
 	{
 		Vector3 newPosition = transform.position;
 
-		if (enemyPosition == newPosition)
+		if (Math.Abs(enemyPosition.x - newPosition.x) < floatCalculationsTolerance 
+                && Math.Abs(enemyPosition.y - newPosition.y) < floatCalculationsTolerance)
 			ChangeMoveDirectionRandom ();
 
 		enemyPosition = newPosition;

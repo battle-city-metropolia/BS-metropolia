@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
@@ -67,7 +67,8 @@ public class PlayerHealth : MonoBehaviour
 			if (shot.isEnemyShot)
 			{
 				TakeDamage(shot.damage);
-			}
+                Destroy(shot.gameObject);
+            }
 		}
 	}
 	

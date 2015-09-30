@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
@@ -54,6 +54,7 @@ public class EnemyHealth : MonoBehaviour
 			if (shot.isEnemyShot != isEnemy)
 			{
 				TakeDamage(shot.damage);
+                Destroy(shot.gameObject);
 			}
 		}
 	}
