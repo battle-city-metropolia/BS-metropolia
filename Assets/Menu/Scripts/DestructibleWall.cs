@@ -3,7 +3,7 @@ using System.Collections;
 
 public class DestructibleWall : MonoBehaviour {
 
-	/*
+    /*
 	public Sprite dmgSprite; //vahingoittunut seinä
 	public int hp = 4;
 
@@ -22,11 +22,11 @@ public class DestructibleWall : MonoBehaviour {
 	}
 	*/
 
-	public GameObject otherGameObject;
-	public GameObject rajahdysAnimation;
-	public AudioClip clipSound;
+    //public GameObject otherGameObject;
 
-	void OnCollisionEnter2D(Collision2D collision)
+    public AudioClip clipSound;
+
+    void OnCollisionEnter2D(Collision2D collision)
 	{
 		//Debug.Log("Entered OnCollisionEnter2D");
 
@@ -43,17 +43,12 @@ public class DestructibleWall : MonoBehaviour {
 
 		// Is it a shot?
 		ShotScript shot = otherCollider.gameObject.GetComponent<ShotScript>();
-		if (shot != null)
+        if (shot != null)
 		{
-			PlayExplosion();
-			AudioSource.PlayClipAtPoint(clipSound, transform.position, 1f);
+            AudioSource.PlayClipAtPoint(clipSound, transform.position);
 			Destroy(gameObject); // Destroy this wall
+            
 		}
-	}
-	void PlayExplosion()
-	{
-		GameObject explosion = (GameObject)Instantiate (rajahdysAnimation);
-		explosion.transform.position = transform.position;
 	}
 
 }
