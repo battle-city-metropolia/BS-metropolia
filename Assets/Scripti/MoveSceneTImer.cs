@@ -4,7 +4,7 @@ using System.Collections;
 
 public class MoveSceneTImer : MonoBehaviour {
 
-	public float timer = 10;
+	public float timer = 360;
 	Text text;
 
 	void Awake (){
@@ -19,6 +19,6 @@ public class MoveSceneTImer : MonoBehaviour {
 			Application.LoadLevel("TestiScene");
 		}
 
-		text.text = "Score: " + Mathf.Round(timer);
+		text.text = "Time: " + Mathf.Round(timer);
 	}
 }
