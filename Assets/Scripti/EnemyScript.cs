@@ -33,7 +33,7 @@ public class EnemyScript : MonoBehaviour
     void Update()
     {
         // Auto-fire
-        if (weapon != null && weapon.CanAttack && this.PlayerOnSight())
+        if (weapon != null && weapon.CanAttack && (this.PlayerOnSight() || this.BaseOnSight()) )
         {
             weapon.Attack(true);
         }
@@ -73,8 +73,43 @@ public class EnemyScript : MonoBehaviour
         return false;
 	}
 
-	// Collision Trigger
-	void OnCollisionEnter2D(Collision2D collision)
+    // TODO: REFACTOR
+    bool BaseOnSight()
+    {
+        Vector3 basePosition = GameObject.Find(GlobalVars.playerBase).transform.position;
+        Vector3 ownPosition = transform.position;
+        GlobalVars.RotationSides rotatedTo = GetComponent<MoveScript>().RotatedTo();
+
+        if (rotatedTo == GlobalVars.RotationSides.Up)
+        {
+            if (basePosition.y > ownPosition.y &&
+                Math.Abs(basePosition.x - ownPosition.x) < sightCheckDelta) // Looking up and player above the enemy
+                return true;
+        }
+        else if (rotatedTo == GlobalVars.RotationSides.Down)
+        {
+            if (basePosition.y < ownPosition.y &&
+                Math.Abs(basePosition.x - ownPosition.x) < sightCheckDelta) // Looking down and player lower than enemy
+                return true;
+        }
+        else if (rotatedTo == GlobalVars.RotationSides.Left)
+        {
+            if (basePosition.x < ownPosition.x
+                && Math.Abs(basePosition.y - ownPosition.y) < sightCheckDelta) // Looking left and player on the left side
+                return true;
+        }
+        else if (rotatedTo == GlobalVars.RotationSides.Right)
+        {
+            if (basePosition.x > ownPosition.x &&
+                Math.Abs(basePosition.y - ownPosition.y) < sightCheckDelta) // Looking right and player on the right side
+                return true;
+        }
+
+        return false;
+    }
+
+    // Collision Trigger
+    void OnCollisionEnter2D(Collision2D collision)
 	{
 		this.ChangeMoveDirectionRandom();
 	}

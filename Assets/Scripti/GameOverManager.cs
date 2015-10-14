@@ -9,7 +9,7 @@ public class GameOverManager : MonoBehaviour
 	public BaseHealth baseHealth;
     Animator anim;                          // Reference to the animator component.
     float restartTimer;                     // Timer to count up to restarting the level
-	
+
 
     void Awake()
     {
@@ -20,18 +20,16 @@ public class GameOverManager : MonoBehaviour
 	void Start()
     {
 		playerHealth = GameObject.Find(GlobalVars.playerTankName).GetComponent<PlayerHealth> ();
-		
-		baseHealth = GameObject.Find(GlobalVars.playerBase).GetComponent<BaseHealth> ();
-	}
+        baseHealth = GameObject.Find(GlobalVars.playerBase).GetComponent<BaseHealth>();
+    }
 
     void Update()
     {
 
-		//PlayerHealth playerHealth = GetComponent<PlayerHealth>();
-			
+        //PlayerHealth playerHealth = GetComponent<PlayerHealth>();
+
         // If the player has run out of health...
-        if (playerHealth.currentHealth <= 0)
-		 
+        if (playerHealth.currentHealth <= 0 || baseHealth.currentHealth <= 0)
         {
 
 			Debug.Log("KUOLIT");
