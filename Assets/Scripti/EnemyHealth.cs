@@ -116,6 +116,7 @@ public class EnemyHealth : MonoBehaviour
 
 		SpawnPowerUp();
 		ScoreManager.score += scoreValue = 10;
+
 		Destroy(gameObject); // Destroy object from the game
 
 	    //              Change the audio clip of the audio source to the death clip and play it (this will stop the hurt clip playing).
