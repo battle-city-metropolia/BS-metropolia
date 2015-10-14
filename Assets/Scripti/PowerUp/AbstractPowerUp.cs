@@ -9,6 +9,8 @@ public abstract class AbstractPowerUp : MonoBehaviour
 
     protected Collider2D otherCollider;
 
+    public AudioClip powerupPickedSound;
+
     // Abstract class for powerup effect
     public abstract void PowerUpEffectPlayerTriggered();
     public abstract void PowerUpEffectEnemyTriggered();
@@ -26,14 +28,20 @@ public abstract class AbstractPowerUp : MonoBehaviour
         {
             PowerUpEffectPlayerTriggered();
             if (DestroyPowerUpAfterTrigger)
+            {
+                AudioSource.PlayClipAtPoint(powerupPickedSound, transform.position, 1f);
                 Destroy(this.gameObject);
+            }
         }
         else if (tag.Equals(GlobalVars.enemyTankTag))
         {
             PowerUpEffectEnemyTriggered();
             if (EnemyDestroyPowerUp)
+            {
+                AudioSource.PlayClipAtPoint(powerupPickedSound, transform.position, 1f);
                 Destroy(this.gameObject);
-        }   
+            }
+        }
     }
 
 }

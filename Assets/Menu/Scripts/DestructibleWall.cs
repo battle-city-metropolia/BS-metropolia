@@ -24,6 +24,7 @@ public class DestructibleWall : MonoBehaviour {
 
 	public GameObject otherGameObject;
 	public GameObject rajahdysAnimation;
+	public AudioClip clipSound;
 
 	void OnCollisionEnter2D(Collision2D collision)
 	{
@@ -45,10 +46,12 @@ public class DestructibleWall : MonoBehaviour {
 		if (shot != null)
 		{
 			PlayExplosion();
+			AudioSource.PlayClipAtPoint(clipSound, transform.position, 1f);
 			Destroy(gameObject); // Destroy this wall
 		}
 	}
-	void PlayExplosion(){
+	void PlayExplosion()
+	{
 		GameObject explosion = (GameObject)Instantiate (rajahdysAnimation);
 		explosion.transform.position = transform.position;
 	}

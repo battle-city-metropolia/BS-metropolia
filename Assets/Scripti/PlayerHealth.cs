@@ -12,6 +12,7 @@ public class PlayerHealth : MonoBehaviour
 	public float flashSpeed = 5f;                               // The speed the damageImage will fade at.
 	public Color flashColour = new Color(1f, 0f, 0f, 0.1f);     // The colour the damageImage is set to, to flash.
 	public GameObject rajahdysAnimation;
+	public AudioClip explosionClip;
 
 	Animator anim;                                              // Reference to the Animator component.
 	AudioSource playerAudio;                                    // Reference to the AudioSource component.
@@ -66,6 +67,7 @@ public class PlayerHealth : MonoBehaviour
 			// Avoid friendly fire
 			if (shot.isEnemyShot)
 			{
+				AudioSource.PlayClipAtPoint(explosionClip, transform.position, 1f);
 				TakeDamage(shot.damage);
 				Debug.Log ("VIHOLLINEN OSUI PELAAJAAN"+ currentHealth);
                 Destroy(shot.gameObject);

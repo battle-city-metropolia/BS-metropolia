@@ -17,12 +17,14 @@ public class WeaponScript : MonoBehaviour
 	/// Cooldown in seconds between two shots
 	/// </summary>
 	public float shootingRate = 1.0f;
-	
-	//--------------------------------
-	// 2 - Cooldown
-	//--------------------------------
-	
-	private float shootCooldown;
+
+    public AudioClip shootClip;
+
+    //--------------------------------
+    // 2 - Cooldown
+    //--------------------------------
+
+    private float shootCooldown;
 	
 	void Start()
 	{
@@ -48,10 +50,13 @@ public class WeaponScript : MonoBehaviour
 	{
 		if (CanAttack)
 		{
-			shootCooldown = shootingRate;
-			
-			// Create a new shot
-			var shotTransform = Instantiate(shotPrefab) as Transform;
+            shootCooldown = shootingRate;
+
+            // Plays the sound
+            AudioSource.PlayClipAtPoint(shootClip, transform.position, 1f);
+
+            // Create a new shot
+            var shotTransform = Instantiate(shotPrefab) as Transform;
 			
 			// Assign position
 			shotTransform.position = transform.position;

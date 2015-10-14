@@ -29,7 +29,8 @@ public class GameOverManager : MonoBehaviour
         //PlayerHealth playerHealth = GetComponent<PlayerHealth>();
 
         // If the player has run out of health...
-        if (playerHealth.currentHealth <= 0 || baseHealth.currentHealth <= 0)
+        //if (playerHealth.currentHealth <= 0 || baseHealth.currentHealth <= 0)
+        if (playerHealth.currentHealth <= 0)
         {
 
 			Debug.Log("KUOLIT");
