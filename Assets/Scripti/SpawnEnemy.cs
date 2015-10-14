@@ -1,5 +1,7 @@
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 public class SpawnEnemy : MonoBehaviour
 {
@@ -92,18 +94,17 @@ public class SpawnEnemy : MonoBehaviour
         switch (Random.Range(0, 2))
         {
             case 0:
-                tank = AssetDatabase.LoadAssetAtPath("Assets/Prefabit/Enemy1.prefab", typeof(GameObject));
+                tank = Resources.Load("Enemy1");
                 break;
             case 1:
-                tank = AssetDatabase.LoadAssetAtPath("Assets/Prefabit/vihollinen5.prefab", typeof(GameObject));
+                tank = Resources.Load("vihollinen5");
                 break;
         }
-
         // Create an instance of the enemy prefab at the randomly selected spawn point's position and rotation.
         if (tank != null
                 && GameObject.FindGameObjectsWithTag(GlobalVars.enemyTankTag).Length < SpawnEnemy.MaxEnemies)
         {
-            Instantiate(tank, GetSpawnPointVector(), new Quaternion(0, 0, 0, 1.0f));
+            Instantiate(tank as GameObject, GetSpawnPointVector(), new Quaternion(0, 0, 0, 1.0f));
         }
     }
 

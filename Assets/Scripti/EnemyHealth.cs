@@ -1,4 +1,3 @@
-using UnityEditor;
 using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
@@ -133,23 +132,23 @@ public class EnemyHealth : MonoBehaviour
 
             if (powerUpType == 0)
             {
-                // Create a new GrenadePowerUp
-                powerUp = AssetDatabase.LoadAssetAtPath("Assets/Prefabit/GrenadePowerUp.prefab", typeof(GameObject));
+                // Create a new GrenadePowerUp                
+                powerUp = Resources.Load("GrenadePowerUp");
             }
             else if (powerUpType == 1)
             {
                 // Create a new HealthPowerUp
-                powerUp = AssetDatabase.LoadAssetAtPath("Assets/Prefabit/HealthPowerUp.prefab", typeof(GameObject));
+                powerUp = Resources.Load("HealthPowerUp");
             }
             else if (powerUpType == 2)
             {
                 // Create a new AttackSpeedPowerUp
-                powerUp = AssetDatabase.LoadAssetAtPath("Assets/Prefabit/AttackSpeedPowerUp.prefab", typeof(GameObject));
+                powerUp = Resources.Load("AttackSpeedPowerUp");
             }
             else if (powerUpType == 3)
             {
                 // Create a new AttackSpeedPowerUp
-                powerUp = AssetDatabase.LoadAssetAtPath("Assets/Prefabit/MoveSpeedPowerUp.prefab", typeof(GameObject));
+                powerUp = Resources.Load("MoveSpeedPowerUp");
             }
             else
             {
@@ -157,7 +156,7 @@ public class EnemyHealth : MonoBehaviour
             }
 
             if (powerUp != null)
-                Instantiate(powerUp, transform.position, Quaternion.identity);
+                Instantiate(powerUp as GameObject, transform.position, Quaternion.identity);
         }
     }
 

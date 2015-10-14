@@ -3,6 +3,9 @@ using System.Collections;
 
 public class DestructibleWall : MonoBehaviour {
 
+    public GameObject otherGameObject;
+    public GameObject rajahdysAnimation;
+
     /*
 	public Sprite dmgSprite; //vahingoittunut seinä
 	public int hp = 4;
@@ -46,9 +49,16 @@ public class DestructibleWall : MonoBehaviour {
         if (shot != null)
 		{
             AudioSource.PlayClipAtPoint(clipSound, transform.position);
-			Destroy(gameObject); // Destroy this wall
+            PlayExplosion();
+            Destroy(gameObject); // Destroy this wall
             
 		}
 	}
+
+    void PlayExplosion()
+    {
+        GameObject explosion = (GameObject)Instantiate(rajahdysAnimation);
+        explosion.transform.position = transform.position;
+    }
 
 }
