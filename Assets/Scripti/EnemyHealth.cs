@@ -18,7 +18,7 @@ public class EnemyHealth : MonoBehaviour
 
 	public bool isEnemy = true;
 
-	void Awake ()
+    void Awake ()
 	{
 
 		//     Setting up the references.
@@ -104,15 +104,15 @@ public class EnemyHealth : MonoBehaviour
 
 	void Death ()
 	{
-		//        The enemy is dead.
-		//isDead = true;
+        //        The enemy is dead.
+        //isDead = true;
 
-		//        Turn the collider into a trigger so shots can pass through it.
-		//capsuleCollider.isTrigger = true;
+        //        Turn the collider into a trigger so shots can pass through it.
+        //capsuleCollider.isTrigger = true;
 
-		//         Tell the animator that the enemy is dead.
+        //         Tell the animator that the enemy is dead.
 		if (anim != null)
-			anim.SetTrigger ("Dead");
+			anim.SetTrigger("Dead");
 
 		SpawnPowerUp();
 		ScoreManager.score += scoreValue = 10;
@@ -127,35 +127,31 @@ public class EnemyHealth : MonoBehaviour
     {
         if (Random.Range(0, 2) == 1) // 50/50 change to spawn powerup
         {
-            // Create a new powerup
-            Object grenadePowerUp = AssetDatabase.LoadAssetAtPath("Assets/Prefabit/GrenadePowerUp.prefab", typeof(GameObject));
-            Instantiate(grenadePowerUp, transform.position, Quaternion.identity);
             int powerUpType = Random.Range(0, 3);
             Object powerUp;
-            //powerUp = AssetDatabase.LoadAssetAtPath("Assets/Prefabit/AttackSpeedPowerUp.prefab", typeof(GameObject)); // TODO: DEUG. REMOVE
 
             if (powerUpType == 0)
             {
-                // Create a new powerup
+                // Create a new GrenadePowerUp
                 powerUp = AssetDatabase.LoadAssetAtPath("Assets/Prefabit/GrenadePowerUp.prefab", typeof(GameObject));
             }
             else if (powerUpType == 1)
             {
-                // Create a new powerup
+                // Create a new HealthPowerUp
                 powerUp = AssetDatabase.LoadAssetAtPath("Assets/Prefabit/HealthPowerUp.prefab", typeof(GameObject));
-
             }
             else if (powerUpType == 2)
             {
-                // Create a new powerup
+                // Create a new AttackSpeedPowerUp
                 powerUp = AssetDatabase.LoadAssetAtPath("Assets/Prefabit/AttackSpeedPowerUp.prefab", typeof(GameObject));
-
             }
             else
             {
                 powerUp = null;
             }
-            Instantiate(powerUp, transform.position, Quaternion.identity);
+
+            if (powerUp != null)
+                Instantiate(powerUp, transform.position, Quaternion.identity);
         }
     }
 

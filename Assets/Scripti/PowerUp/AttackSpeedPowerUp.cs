@@ -14,35 +14,37 @@ public class AttackSpeedPowerUp : AbstractPowerUp
 
     public override void PowerUpEffectPlayerTriggered()
     {
-        //Debug.Log("Player picked up health powerup");
+        Debug.Log("Player picked up attack speed powerup");
+        // Raise players attack speed on pick up
         RaiseAttackSpeed();
     }
 
     public override void PowerUpEffectEnemyTriggered()
     {
-        //Debug.Log("Enemy picked up health powerup");
-        // Do nothing if enemy picks up
+        Debug.Log("Enemy picked up attack speed powerup");
+        // Raise enemies attack speed on pickup
+        RaiseAttackSpeed();
     }
 
     void RaiseAttackSpeed()
     {
         AlreadyUsed = true;
         GetComponent<Renderer>().enabled = false;
-        WeaponScript playerWeapon = otherCollider.gameObject.GetComponent<WeaponScript>();
-        if (playerWeapon != null)
+        WeaponScript weapon = otherCollider.gameObject.GetComponent<WeaponScript>();
+        if (weapon != null)
         {
-            oldAttackSpeed = playerWeapon.shootingRate;
-            playerWeapon.shootingRate = attackSpeed;
+            oldAttackSpeed = weapon.shootingRate;
+            weapon.shootingRate = attackSpeed;
             Invoke("RestoreAttackSpeed", powerUpDurationSec);
         }
     }
 
     void RestoreAttackSpeed()
     {
-        WeaponScript playerWeapon = otherCollider.gameObject.GetComponent<WeaponScript>();
-        if (playerWeapon != null)
+        WeaponScript weapon = otherCollider.gameObject.GetComponent<WeaponScript>();
+        if (weapon != null)
         {
-            playerWeapon.shootingRate = oldAttackSpeed;
+            weapon.shootingRate = oldAttackSpeed;
         }
         Destroy(this.gameObject);
     }

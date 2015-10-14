@@ -7,7 +7,7 @@ public class HealthPowerUp : AbstractPowerUp
     public override bool DestroyPowerUpAfterTrigger { get { return false; } }
     public override bool AlreadyUsed { get; set; }
 
-    public float powerUpDurationSec = 5.0f; // Duration in seconds
+    public float powerUpDurationSec = 10.0f; // Duration in seconds
     public int raiseHealthBy = 10;
 
     public override void PowerUpEffectPlayerTriggered()

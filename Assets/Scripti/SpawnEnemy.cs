@@ -48,7 +48,7 @@ public class SpawnEnemy : MonoBehaviour
 			float y = Random.Range (minY, maxY);
 			Vector3 temp = new Vector3(x, y, 0);
 
-			Collider[] hitColliders = Physics.OverlapSphere(temp, 2);
+			Collider[] hitColliders = Physics.OverlapSphere(temp, 3);
 			if (hitColliders.Length == 0) // Something on the way
 			{
 				return temp;
