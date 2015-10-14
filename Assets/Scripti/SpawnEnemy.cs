@@ -6,23 +6,25 @@ public class SpawnEnemy : MonoBehaviour
     public static int MaxEnemies = 20;
 
     //public GameObject enemy;                		// The enemy prefab to be spawned.
+    public PlayerHealth playerHealth;           // Reference to the player's heatlh.
+    public BaseHealth baseHealth;
     public float spawnTime = 4.0f;            		// How long between each spawn. In seconds
-	public Transform[] spawnPoints;         		// An array of the spawn points this enemy can spawn from.
-	public float delta = 0.5f;
-	float fieldMinX, fieldMaxX, fieldMinY, fieldMaxY;
-	int spawnCheckPositionsMaxTries = 50; 			// Max tries to check for spawn position
-
-    private PlayerHealth playerHealth;              // Reference to the player's heatlh.
+    public Transform[] spawnPoints;         		// An array of the spawn points this enemy can spawn from.
+    public float delta = 0.5f;
+    float fieldMinX, fieldMaxX, fieldMinY, fieldMaxY;
+    int spawnCheckPositionsMaxTries = 50; 			// Max tries to check for spawn position
 
     void Start ()
 	{
 		this.GetMinMaxWallsPositions ();
 		playerHealth = GameObject.Find(GlobalVars.playerTankName).GetComponent<PlayerHealth> ();
+        baseHealth = GameObject.Find(GlobalVars.playerBase).GetComponent<BaseHealth> ();
+
 		// Call the Spawn function after a delay of the spawnTime and then continue to call after the same amount of time.
 		InvokeRepeating ("Spawn", spawnTime, spawnTime);
 	}
-	
-	
+
+
 	void Spawn ()
 	{
         //Debug.Log(spawnPoints.Length);
@@ -32,7 +34,7 @@ public class SpawnEnemy : MonoBehaviour
 		{
 			Debug.Log("Stopping spawning because oma_tankki is dead");
 			// Stop invoking and exit the function.
-			CancelInvoke("Spawn"); 
+			CancelInvoke("Spawn");
 			return;
 		}
 
@@ -42,11 +44,11 @@ public class SpawnEnemy : MonoBehaviour
         SpawnEnemyTank();
 	}
 
-	Vector3 GetSpawnPointVector() 
+	Vector3 GetSpawnPointVector()
 	{
 		int currentTry = 0;
 
-		while(currentTry != spawnCheckPositionsMaxTries) 
+		while(currentTry != spawnCheckPositionsMaxTries)
 		{
 			currentTry++;
 			float x = Random.Range (fieldMinX, fieldMaxX);
@@ -64,7 +66,7 @@ public class SpawnEnemy : MonoBehaviour
 		return new Vector3 (this.transform.position.x, this.transform.position.y, 0);
 	}
 
-	void GetMinMaxWallsPositions() 
+	void GetMinMaxWallsPositions()
 	{
 		GameObject[] metallWallObjects = GameObject.FindGameObjectsWithTag ("MetalWall");
 		foreach (GameObject mw in metallWallObjects)
@@ -89,7 +91,7 @@ public class SpawnEnemy : MonoBehaviour
 
         switch (Random.Range(0, 2))
         {
-            case 0:    
+            case 0:
                 tank = AssetDatabase.LoadAssetAtPath("Assets/Prefabit/Enemy1.prefab", typeof(GameObject));
                 break;
             case 1:
@@ -98,7 +100,7 @@ public class SpawnEnemy : MonoBehaviour
         }
 
         // Create an instance of the enemy prefab at the randomly selected spawn point's position and rotation.
-        if (tank != null 
+        if (tank != null
                 && GameObject.FindGameObjectsWithTag(GlobalVars.enemyTankTag).Length < SpawnEnemy.MaxEnemies)
         {
             Instantiate(tank, GetSpawnPointVector(), new Quaternion(0, 0, 0, 1.0f));
