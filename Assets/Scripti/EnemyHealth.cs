@@ -127,7 +127,7 @@ public class EnemyHealth : MonoBehaviour
     {
         if (Random.Range(0, 2) == 1) // 50/50 change to spawn powerup
         {
-            int powerUpType = Random.Range(0, 3);
+            int powerUpType = Random.Range(0, 4);
             Object powerUp;
 
             if (powerUpType == 0)
@@ -144,6 +144,11 @@ public class EnemyHealth : MonoBehaviour
             {
                 // Create a new AttackSpeedPowerUp
                 powerUp = AssetDatabase.LoadAssetAtPath("Assets/Prefabit/AttackSpeedPowerUp.prefab", typeof(GameObject));
+            }
+            else if (powerUpType == 3)
+            {
+                // Create a new AttackSpeedPowerUp
+                powerUp = AssetDatabase.LoadAssetAtPath("Assets/Prefabit/MoveSpeedPowerUp.prefab", typeof(GameObject));
             }
             else
             {
