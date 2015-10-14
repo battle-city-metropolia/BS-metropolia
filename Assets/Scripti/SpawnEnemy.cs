@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class SpawnEnemy : MonoBehaviour
 {
-	public PlayerHealth playerHealth;       		// Reference to the player's heatlh.
-
 	public GameObject enemy;                		// The enemy prefab to be spawned.
 	public float spawnTime = 8f;            		// How long between each spawn. In seconds
 	public Transform[] spawnPoints;         		// An array of the spawn points this enemy can spawn from.
@@ -11,7 +9,9 @@ public class SpawnEnemy : MonoBehaviour
 	float minX, maxX, minY, maxY;
 	int spawnCheckPositionsMaxTries = 50; 			// Max tries to check for spawn position
 
-	void Start ()
+    private PlayerHealth playerHealth;              // Reference to the player's heatlh.
+
+    void Start ()
 	{
 		this.GetMinMaxWallsPositions ();
 		playerHealth = GameObject.Find(GlobalVars.playerTankName).GetComponent<PlayerHealth> ();
@@ -32,14 +32,9 @@ public class SpawnEnemy : MonoBehaviour
 			CancelInvoke("Spawn"); 
 			return;
 		}
-		
-		// Find a random index between zero and one less than the number of spawn points.
-		int spawnPointIndex = Random.Range (0, spawnPoints.Length);
 
-		
-		// Create an instance of the enemy prefab at the randomly selected spawn point's position and rotation.
-		//Instantiate (enemy, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
-		Instantiate (enemy, GetSpawnPointVector(), spawnPoints[spawnPointIndex].rotation);
+        // Create an instance of the enemy prefab at the randomly selected spawn point's position and rotation.
+        Instantiate(enemy, GetSpawnPointVector(), new Quaternion(0, 0, 0, 1.0f));
 	}
 
 	Vector3 GetSpawnPointVector() 

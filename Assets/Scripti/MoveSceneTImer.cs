@@ -19,6 +19,7 @@ public class MoveSceneTImer : MonoBehaviour {
 			Application.LoadLevel("TestiScene");
 		}
 
-		text.text = "Time: " + Mathf.Round(timer);
+        if (text != null)
+		    text.text = "Time: " + Mathf.Round(timer);
 	}
 }

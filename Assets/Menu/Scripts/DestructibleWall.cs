@@ -53,9 +53,4 @@ public class DestructibleWall : MonoBehaviour {
 		explosion.transform.position = transform.position;
 	}
 
-			Destroy(gameObject); // Destroy this wall
-		}
-	}
-
-
 }
