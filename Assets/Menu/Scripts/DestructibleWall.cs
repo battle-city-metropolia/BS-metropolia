@@ -52,4 +52,10 @@ public class DestructibleWall : MonoBehaviour {
 		GameObject explosion = (GameObject)Instantiate (rajahdysAnimation);
 		explosion.transform.position = transform.position;
 	}
+
+			Destroy(gameObject); // Destroy this wall
+		}
+	}
+
+
 }
