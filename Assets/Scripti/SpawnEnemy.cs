@@ -27,10 +27,6 @@ public class SpawnEnemy : MonoBehaviour
 	{
         //Debug.Log(spawnPoints.Length);
 
-        // Make spawn delay a random interval
-        //spawnTime = Random.Range(2.0f, 8.0f);
-        Debug.Log("spawnTime: " + spawnTime);
-
         // If the player has no health left...
         if (playerHealth.currentHealth <= 0f)
 		{
@@ -107,7 +103,6 @@ public class SpawnEnemy : MonoBehaviour
         {
             Instantiate(tank, GetSpawnPointVector(), new Quaternion(0, 0, 0, 1.0f));
         }
-        Debug.Log(GameObject.FindGameObjectsWithTag(GlobalVars.enemyTankTag).Length);
     }
 
     private void CheckIfEnemiesAreaOutside()
