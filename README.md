@@ -7,6 +7,7 @@ lalala some readme
 Pull requestit. Muutakaa jotakin tekstissä.
 
 Taru: jos vaikka nyt toimis...
+Kyllä tää tästä lähtee :D
 
 Eli: bla-bla
 
