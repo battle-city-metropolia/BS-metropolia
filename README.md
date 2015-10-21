@@ -6,7 +6,7 @@ lalala some readme
 <br/>
 Pull requestit. Muutakaa jotakin tekstissä.
 
-Taru: lalala
+Taru: jos vaikka nyt toimis...
 
 Eli: bla-bla
 
