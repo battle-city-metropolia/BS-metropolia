@@ -9,6 +9,6 @@ Pull requestit. Muutakaa jotakin tekstissä.
 Taru: jos vaikka nyt toimis...
 Kyllä tää tästä lähtee :D
 
-Eli: bla-bla
+Eli: testi testi toivottavasti toimii :D :D muokattu 23.10.15
 
 Sara: bla-lala
