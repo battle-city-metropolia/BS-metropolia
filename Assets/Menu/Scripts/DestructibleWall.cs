@@ -57,8 +57,11 @@ public class DestructibleWall : MonoBehaviour {
 
     void PlayExplosion()
     {
-        GameObject explosion = (GameObject)Instantiate(rajahdysAnimation);
-        explosion.transform.position = transform.position;
+        if (rajahdysAnimation != null)
+        {
+            GameObject explosion = (GameObject)Instantiate(rajahdysAnimation);
+            explosion.transform.position = transform.position;
+        }
     }
 
 }
